@@ -1,0 +1,805 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Temi | eFootball accounts and COD points</title>
+<meta name="description" content="Browse eFootball accounts with real images, buy Call of Duty points in minutes, and chat with Temi's assistant any time.">
+<meta name="theme-color" content="#0D1120">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0D1120;--bg2:#101528;--s1:#161B2E;--s2:#1E2540;--bd:#2A3254;
+  --tx:#F2F4FA;--mu:#A9B1CC;--ac:#C6F432;--ok:#8FE8AE;--warn:#FFC766;
+  --pad:clamp(16px,4vw,56px);--r:20px;
+}
+*{box-sizing:border-box}
+html{overflow-x:clip;scroll-behavior:smooth;scroll-padding-top:84px}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:Inter,system-ui,sans-serif;font-size:16px;line-height:1.55;overflow-x:clip;-webkit-font-smoothing:antialiased}
+body.lock{overflow:hidden}
+h1,h2,h3{font-family:'Space Grotesk',sans-serif;margin:0;letter-spacing:-.02em}
+a{color:inherit;text-decoration:none}
+button,input{font-family:inherit;font-size:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--ac);outline-offset:3px;border-radius:8px}
+.wrap{padding-left:var(--pad);padding-right:var(--pad);max-width:1360px;margin:0 auto}
+.muted{color:var(--mu)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 26px;border-radius:14px;border:1px solid transparent;font-weight:600;transition:transform .2s,box-shadow .2s,background .2s,border-color .2s;will-change:transform}
+.btn-p{background:var(--ac);color:var(--bg)}
+.btn-p:hover{box-shadow:0 10px 30px -8px rgba(198,244,50,.55);transform:translateY(-2px)}
+.btn-g{background:var(--s1);border-color:var(--bd);color:var(--tx)}
+.btn-g:hover{border-color:var(--ac);transform:translateY(-2px)}
+.btn-sm{min-height:44px;padding:0 18px;border-radius:12px;font-size:15px}
+.pill{display:inline-block;padding:4px 12px;border-radius:999px;font-size:13px;font-weight:600}
+.pill.available{background:#12351F;color:var(--ok)}
+.pill.deal{background:#3A2B0C;color:var(--warn)}
+.pill.sold{background:#2A2F44;color:#C3C9DE}
+
+/* progress + demo bar + nav */
+#progress{position:fixed;top:0;left:0;height:3px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:var(--ac);z-index:120}
+.demo{background:var(--ac);color:var(--bg);text-align:center;padding:8px 16px;font-size:14px;font-weight:600}
+#nav{position:sticky;top:0;z-index:100;transition:background .3s,backdrop-filter .3s,border-color .3s,padding .3s;border-bottom:1px solid transparent;padding:20px 0}
+#nav.scrolled{background:rgba(13,17,32,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-color:var(--bd);padding:10px 0}
+#nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{display:flex;align-items:center;gap:10px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:24px}
+.logo i{display:inline-flex;width:38px;height:38px;border-radius:10px;background:var(--ac);color:var(--bg);align-items:center;justify-content:center;font-style:normal;font-size:20px;transition:transform .4s}
+.logo:hover i{transform:rotate(-12deg) scale(1.08)}
+.links{display:flex;align-items:center;gap:28px;font-weight:500;font-size:15px}
+.links a:not(.btn){position:relative;padding:6px 0;color:var(--mu);transition:color .2s}
+.links a:not(.btn)::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;background:var(--ac);transform:scaleX(0);transform-origin:0 50%;transition:transform .3s}
+.links a:not(.btn):hover,.links a.on{color:var(--tx)}
+.links a:not(.btn):hover::after,.links a.on::after{transform:scaleX(1)}
+.burger{display:none;width:48px;height:48px;border-radius:12px;border:1px solid var(--bd);background:var(--s1);color:var(--tx);align-items:center;justify-content:center}
+.burger span,.burger span::before,.burger span::after{display:block;width:20px;height:2px;background:currentColor;border-radius:2px;position:relative;transition:transform .3s,background .3s}
+.burger span::before,.burger span::after{content:"";position:absolute;left:0}
+.burger span::before{top:-6px}.burger span::after{top:6px}
+.burger[aria-expanded=true] span{background:transparent}
+.burger[aria-expanded=true] span::before{transform:translateY(6px) rotate(45deg)}
+.burger[aria-expanded=true] span::after{transform:translateY(-6px) rotate(-45deg)}
+
+/* hero */
+.hero{position:relative;overflow:hidden;padding:clamp(40px,8vw,96px) 0 clamp(48px,7vw,88px);--mx:70%;--my:30%}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(520px circle at var(--mx) var(--my),rgba(198,244,50,.13),transparent 60%);pointer-events:none}
+.hero::after{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--bd) 1px,transparent 1px),linear-gradient(90deg,var(--bd) 1px,transparent 1px);background-size:56px 56px;opacity:.28;-webkit-mask-image:radial-gradient(ellipse at 60% 30%,#000 10%,transparent 70%);mask-image:radial-gradient(ellipse at 60% 30%,#000 10%,transparent 70%);pointer-events:none}
+.hero .wrap{position:relative;z-index:1;display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(32px,5vw,72px);align-items:center}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;background:var(--s2);border:1px solid var(--bd);color:var(--ac);font-size:14px;font-weight:600}
+.eyebrow b{width:8px;height:8px;border-radius:50%;background:var(--ac);animation:pulse 1.8s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(198,244,50,.6)}100%{box-shadow:0 0 0 12px rgba(198,244,50,0)}}
+.hero h1{font-size:clamp(40px,7vw,78px);line-height:1.02;margin:22px 0}
+.hero h1 .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em}
+.hero h1 .w span{display:inline-block;transform:translateY(110%);animation:rise .9s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--i)*70ms + 250ms)}
+.hero h1 em{font-style:normal;color:var(--ac)}
+@keyframes rise{to{transform:none}}
+.hero p.lead{font-size:clamp(17px,2vw,20px);color:var(--mu);max-width:560px;margin:0 0 30px}
+.cta-row{display:flex;flex-wrap:wrap;gap:14px}
+.hero-l{animation:inL 1s cubic-bezier(.2,.8,.2,1) both}
+.hero-r{animation:inR 1s cubic-bezier(.2,.8,.2,1) both;position:relative;perspective:1000px}
+@keyframes inL{from{opacity:0;transform:translateX(-80px)}to{opacity:1;transform:none}}
+@keyframes inR{from{opacity:0;transform:translateX(80px)}to{opacity:1;transform:none}}
+.chat-card{position:relative;background:var(--s1);border:1px solid var(--bd);border-radius:24px;padding:22px;display:flex;flex-direction:column;gap:12px;min-height:340px;box-shadow:0 40px 80px -30px rgba(0,0,0,.7);transition:transform .15s ease-out;transform-style:preserve-3d}
+.chat-head{display:flex;align-items:center;gap:12px;padding-bottom:14px;border-bottom:1px solid var(--bd)}
+.avatar{width:40px;height:40px;border-radius:50%;background:var(--s2);display:inline-flex;align-items:center;justify-content:center;color:var(--ac);flex:none}
+.avatar svg{width:22px;height:22px}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--ok);margin-right:6px}
+.msg{max-width:86%;padding:11px 15px;border-radius:16px;animation:pop .35s cubic-bezier(.2,.8,.2,1) both;overflow-wrap:anywhere}
+.msg.bot{align-self:flex-start;background:var(--s2);border-bottom-left-radius:4px}
+.msg.me{align-self:flex-end;background:var(--ac);color:var(--bg);font-weight:500;border-bottom-right-radius:4px}
+@keyframes pop{from{opacity:0;transform:translateY(10px) scale(.96)}to{opacity:1;transform:none}}
+.typing{display:inline-flex;gap:4px;align-items:center;padding:14px 16px}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--mu);animation:bounce 1s infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes bounce{0%,60%,100%{transform:none;opacity:.5}30%{transform:translateY(-5px);opacity:1}}
+.float{position:absolute;padding:10px 16px;border-radius:14px;background:var(--s2);border:1px solid var(--bd);font-weight:600;box-shadow:0 20px 40px -20px rgba(0,0,0,.8);animation:bob 5s ease-in-out infinite;will-change:transform}
+.float.a{top:-18px;left:-14px}
+.float.b{bottom:-20px;right:-8px;animation-delay:-2.5s}
+@keyframes bob{50%{translate:0 -10px}}
+
+/* marquee */
+.marquee{border-block:1px solid var(--bd);background:var(--bg2);overflow:hidden;padding:16px 0}
+.track{display:flex;gap:48px;width:max-content;animation:slide 38s linear infinite}
+.marquee:hover .track{animation-play-state:paused}
+.track span{display:inline-flex;align-items:center;gap:10px;white-space:nowrap;color:var(--mu);font-weight:500}
+.track span::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--ac)}
+@keyframes slide{to{transform:translateX(-50%)}}
+
+/* sections */
+section{position:relative}
+.sec{padding:clamp(56px,9vw,112px) 0}
+.sec-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:36px}
+.sec-head h2,.h2{font-size:clamp(30px,4.6vw,52px);line-height:1.05}
+.sec-head p{margin:10px 0 0;color:var(--mu);max-width:520px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;padding:clamp(36px,6vw,64px) 0}
+.stat{padding:24px;border-radius:var(--r);background:var(--s1);border:1px solid var(--bd)}
+.stat b{display:block;font-family:'Space Grotesk',sans-serif;font-size:clamp(34px,4vw,52px);line-height:1;color:var(--ac)}
+.stat span{display:block;margin-top:10px;color:var(--mu);font-size:15px}
+.cats{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.cat{position:relative;display:flex;flex-direction:column;justify-content:flex-end;gap:10px;min-height:260px;padding:clamp(24px,3vw,40px);border-radius:28px;background:var(--s2);border:1px solid var(--bd);overflow:hidden;transition:border-color .3s,transform .3s}
+.cat::before{content:"";position:absolute;width:320px;height:320px;right:-80px;top:-120px;border-radius:50%;background:radial-gradient(circle,rgba(198,244,50,.22),transparent 65%);transition:transform .6s}
+.cat:hover{border-color:var(--ac);transform:translateY(-4px)}
+.cat:hover::before{transform:scale(1.4) translate(-20px,20px)}
+.cat small{color:var(--ac);font-weight:600;font-size:14px;position:relative}
+.cat h3{font-size:clamp(28px,3.4vw,40px);position:relative}
+.cat p{margin:0;color:var(--mu);position:relative}
+.cat .arrow{position:absolute;top:28px;right:28px;width:44px;height:44px;border-radius:50%;border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;transition:background .3s,color .3s,transform .3s}
+.cat:hover .arrow{background:var(--ac);color:var(--bg);transform:rotate(-45deg)}
+
+/* accounts */
+.filters{display:flex;flex-wrap:wrap;gap:10px}
+.chip{min-height:44px;padding:0 20px;border-radius:999px;border:1px solid var(--bd);background:var(--s1);color:var(--tx);font-weight:600;font-size:15px;transition:background .2s,color .2s,border-color .2s,transform .2s}
+.chip:hover{border-color:var(--ac)}
+.chip[aria-pressed=true]{background:var(--ac);border-color:var(--ac);color:var(--bg)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:24px;perspective:1200px}
+.acard{min-width:0}
+.tilt{position:relative;display:flex;flex-direction:column;gap:14px;height:100%;padding:18px;border-radius:22px;background:var(--s1);border:1px solid var(--bd);transition:transform .15s ease-out,border-color .3s,box-shadow .3s;transform-style:preserve-3d;overflow:hidden}
+.tilt::after{content:"";position:absolute;inset:0;background:radial-gradient(260px circle at var(--gx,50%) var(--gy,0%),rgba(198,244,50,.12),transparent 60%);opacity:0;transition:opacity .3s;pointer-events:none}
+.tilt:hover{border-color:#44507f;box-shadow:0 30px 60px -30px rgba(0,0,0,.8)}
+.tilt:hover::after{opacity:1}
+.shot{border-radius:14px;overflow:hidden;line-height:0}
+.shot svg,.shot img{width:100%;height:auto;display:block;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.tilt:hover .shot svg,.tilt:hover .shot img{transform:scale(1.07)}
+.row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.code{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:20px}
+.kv{display:flex;flex-direction:column;gap:6px;color:var(--mu);font-size:15px}
+.kv div{display:flex;justify-content:space-between;gap:12px}
+.kv b{color:var(--tx);font-weight:500;text-align:right}
+.price{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:26px}
+.foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:14px;border-top:1px solid var(--bd)}
+
+/* how */
+.steps{--p:0;position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin:0;padding:0;list-style:none}
+.steps::before{content:"";position:absolute;left:0;right:0;top:34px;height:2px;background:var(--bd)}
+.steps::after{content:"";position:absolute;left:0;top:34px;height:2px;width:100%;background:var(--ac);transform-origin:0 50%;transform:scaleX(var(--p))}
+.step{position:relative;z-index:1;padding:24px;border-radius:var(--r);background:var(--s1);border:1px solid var(--bd)}
+.step .n{display:inline-flex;width:20px;height:20px;border-radius:50%;background:var(--ac);margin-bottom:34px;box-shadow:0 0 0 6px var(--bg2)}
+.step b{display:block;font-size:19px;margin-bottom:6px;font-family:'Space Grotesk',sans-serif}
+.step span{color:var(--mu);font-size:15px}
+.alt{background:var(--bg2);border-block:1px solid var(--bd)}
+
+/* cod */
+.packs{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.pack{display:flex;flex-direction:column;gap:14px;padding:24px;border-radius:var(--r);background:var(--s1);border:1px solid var(--bd);transition:border-color .3s,transform .3s,box-shadow .3s;text-align:left;color:var(--tx)}
+.pack:hover{transform:translateY(-6px);border-color:var(--ac);box-shadow:0 24px 50px -24px rgba(198,244,50,.35)}
+.pack[aria-pressed=true]{border-color:var(--ac);background:var(--s2)}
+.pack .cp{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:34px;line-height:1}
+.pack .cp small{font-size:15px;color:var(--mu);margin-left:4px}
+.pack .pr{font-size:22px;font-weight:600}
+.pack .go{color:var(--ac);font-weight:600;font-size:15px}
+.panel{margin-top:28px;max-width:640px;padding:clamp(20px,3vw,30px);border-radius:var(--r);background:var(--s1);border:1px solid var(--bd);display:flex;flex-direction:column;gap:16px;animation:pop .4s both}
+.panel.empty{color:var(--mu);border-style:dashed;background:transparent}
+.panel h3{font-size:22px}
+.field label{display:block;font-weight:600;font-size:15px;margin-bottom:8px}
+.field input,.offer input{width:100%;min-height:48px;padding:0 16px;border-radius:12px;border:1px solid var(--bd);background:var(--bg);color:var(--tx)}
+.field input:focus,.offer input:focus{outline:none;border-color:var(--ac)}
+.err{color:var(--warn);font-size:14px;min-height:20px}
+.bank{display:flex;flex-direction:column;gap:8px;padding:16px;border-radius:12px;background:var(--bg);border:1px solid var(--bd);font-size:15px}
+.bank div{display:flex;justify-content:space-between;gap:12px}
+.bank span{color:var(--mu)}
+.lock-t{display:flex;align-items:center;gap:10px;color:var(--warn);font-weight:600}
+.stepper{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px}
+.stepper li{display:flex;align-items:center;gap:12px;color:var(--mu)}
+.stepper .c{width:28px;height:28px;border-radius:50%;border:2px solid var(--bd);display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex:none;transition:all .4s}
+.stepper li.done{color:var(--tx);font-weight:600}
+.stepper li.done .c{background:var(--ac);border-color:var(--ac);color:var(--bg)}
+.stepper li.now{color:var(--ac);font-weight:600}
+.stepper li.now .c{border-color:var(--ac);animation:pulse 1.6s infinite}
+.bar{height:8px;border-radius:99px;background:var(--bg);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--ac);transition:width .8s}
+.note{padding:14px 16px;border-radius:12px;background:var(--s2)}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+
+/* faq */
+.faq{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(24px,5vw,72px)}
+details{border-radius:16px;background:var(--s1);border:1px solid var(--bd);padding:0 24px;transition:border-color .3s}
+details+details{margin-top:14px}
+details[open]{border-color:#44507f}
+summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:64px;font-weight:600}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-size:26px;color:var(--ac);transition:transform .3s;flex:none}
+details[open] summary::after{transform:rotate(45deg)}
+details p{margin:0 0 22px;color:var(--mu)}
+
+/* cta + footer */
+.cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px;padding:clamp(28px,5vw,60px);border-radius:32px;background:var(--ac);color:var(--bg);overflow:hidden}
+.cta h2{font-size:clamp(28px,4vw,46px);line-height:1.05;max-width:620px}
+.cta p{margin:12px 0 0;font-size:18px}
+.cta .btn{background:var(--bg);color:var(--tx)}
+footer{border-top:1px solid var(--bd);padding:32px 0;color:var(--mu);font-size:14px;margin-top:clamp(56px,8vw,96px)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px}
+footer nav{display:flex;flex-wrap:wrap;gap:20px}
+footer a:hover{color:var(--ac)}
+
+/* drawer */
+.scrim{position:fixed;inset:0;background:rgba(5,8,18,.7);backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .35s;z-index:200}
+.scrim.on{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(560px,100%);background:var(--bg2);border-left:1px solid var(--bd);transform:translateX(102%);transition:transform .5s cubic-bezier(.2,.8,.2,1);z-index:210;display:flex;flex-direction:column}
+.drawer.on{transform:none}
+.d-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 20px;border-bottom:1px solid var(--bd)}
+.x{width:44px;height:44px;border-radius:12px;border:1px solid var(--bd);background:var(--s1);color:var(--tx);font-size:22px;line-height:1}
+.d-body{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:18px;overscroll-behavior:contain}
+.gal{padding:12px;border-radius:18px;background:var(--s1);border:1px solid var(--bd)}
+.gal .shot{aspect-ratio:8/5;position:relative;background:var(--bg)}
+.gal .shot>*{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .45s}
+.gal .shot>.on{opacity:1}
+.thumbs{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.box{padding:20px;border-radius:18px;background:var(--s1);border:1px solid var(--bd);display:flex;flex-direction:column;gap:14px}
+.chat{display:flex;flex-direction:column;gap:10px;max-height:300px;overflow-y:auto;scroll-behavior:smooth}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips .chip{min-height:40px;padding:0 14px;font-size:14px;background:var(--s2)}
+.offer{display:flex;gap:10px}
+.banner{padding:12px 16px;border-radius:12px;font-weight:600}
+.banner.ok{background:#12351F;color:var(--ok)}
+.banner.warn{background:#3A2B0C;color:var(--warn)}
+#toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,120px);padding:14px 20px;border-radius:14px;background:var(--s2);border:1px solid var(--ac);z-index:300;transition:transform .4s cubic-bezier(.2,.8,.2,1);max-width:calc(100% - 32px);text-align:center}
+#toast.on{transform:translate(-50%,0)}
+#top{position:fixed;right:16px;bottom:16px;width:48px;height:48px;border-radius:50%;border:1px solid var(--bd);background:var(--s2);color:var(--ac);z-index:90;opacity:0;pointer-events:none;transform:translateY(16px);transition:all .3s}
+#top.on{opacity:1;pointer-events:auto;transform:none}
+.conf{position:fixed;top:-12px;width:10px;height:14px;z-index:400;pointer-events:none;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:.9}}
+
+/* responsive */
+@media (max-width:1024px){
+  .hero .wrap{grid-template-columns:1fr}
+  .packs,.stats{grid-template-columns:repeat(2,1fr)}
+  .steps{grid-template-columns:repeat(2,1fr)}
+  .steps::before,.steps::after{display:none}
+  .faq{grid-template-columns:1fr}
+}
+@media (max-width:820px){
+  .burger{display:inline-flex}
+  .links{position:fixed;top:0;right:0;bottom:0;width:min(320px,86vw);flex-direction:column;align-items:flex-start;gap:6px;padding:92px 24px 24px;background:var(--bg2);border-left:1px solid var(--bd);transform:translateX(105%);transition:transform .45s cubic-bezier(.2,.8,.2,1);z-index:95}
+  .links.on{transform:none}
+  .links a:not(.btn){font-size:20px;padding:12px 0;width:100%;color:var(--tx)}
+  .links .btn{margin-top:14px;width:100%}
+  .burger{position:relative;z-index:96}
+  .cats{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  .packs,.stats,.steps{grid-template-columns:1fr}
+  .grid{grid-template-columns:1fr}
+  .stats{grid-template-columns:1fr 1fr;gap:12px}
+  .stat{padding:18px}
+  .float.a{left:4px}.float.b{right:4px}
+  .cta-row .btn{flex:1 1 100%}
+  .offer{flex-direction:column}
+  .sec-head{margin-bottom:24px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .hero h1 .w span{transform:none}
+}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div class="demo">Demo preview: sample accounts, images and rates. Real listings come from Temi's own uploads.</div>
+
+<header id="nav">
+  <div class="wrap">
+    <a href="#home" class="logo" aria-label="Temi home"><i>T</i>Temi</a>
+    <nav class="links" id="links" aria-label="Main">
+      <a href="#accounts" data-sec="accounts">eFootball accounts</a>
+      <a href="#cod" data-sec="cod">COD points</a>
+      <a href="#how" data-sec="how">How it works</a>
+      <a href="#faq" data-sec="faq">Support</a>
+      <a class="btn btn-p btn-sm" data-wa="Hi Temi" href="#" target="_blank" rel="noopener">Chat with Temi</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="links"><span></span></button>
+  </div>
+</header>
+
+<main id="home">
+  <section class="hero" id="hero">
+    <div class="wrap">
+      <div class="hero-l">
+        <span class="eyebrow"><b></b>Accounts and COD points, handled by Temi</span>
+        <h1 id="h1">See the account first. Then <em>make your offer.</em></h1>
+        <p class="lead">Browse eFootball accounts with real images, buy COD points in minutes, and chat with Temi's assistant any time. A real person steps in whenever you need one.</p>
+        <div class="cta-row">
+          <a class="btn btn-p" href="#accounts">Browse accounts</a>
+          <a class="btn btn-g" href="#cod">Buy COD points</a>
+        </div>
+      </div>
+      <div class="hero-r">
+        <div class="float a" data-depth="18"><span class="dot"></span>TM-014 available</div>
+        <div class="chat-card" id="heroCard" data-depth="0">
+          <div class="chat-head">
+            <span class="avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="8" width="16" height="11" rx="3"/><path d="M12 8V4M9 13h.01M15 13h.01"/></svg></span>
+            <div><strong>Temi's assistant</strong><div class="muted" style="font-size:13px"><span class="dot"></span>Replies instantly, any time</div></div>
+          </div>
+          <div id="heroChat" style="display:flex;flex-direction:column;gap:12px" aria-live="polite"></div>
+        </div>
+        <div class="float b" data-depth="28">Deal agreed ✓</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="track" id="track"></div>
+  </div>
+
+  <div class="wrap">
+    <div class="stats" data-fly-unit="meet">
+      <div class="stat"><b><span class="count" data-to="10">0</span>+</b><span>eFootball accounts moved every week</span></div>
+      <div class="stat"><b><span class="count" data-to="15">0</span> min</b><span>longest wait for COD points</span></div>
+      <div class="stat"><b><span class="count" data-to="1">0</span> hr</b><span>maximum time before sellers are paid</span></div>
+      <div class="stat"><b><span class="count" data-to="24">0</span>/7</b><span>assistant always on, Temi ready to step in</span></div>
+    </div>
+  </div>
+
+  <section class="wrap" aria-label="Categories" style="padding-bottom:clamp(40px,7vw,88px)">
+    <div class="cats" data-fly-unit="r">
+      <a class="cat" href="#accounts"><span class="arrow">→</span><small>Marketplace</small><h3>eFootball accounts</h3><p>Images, price and linked type on every listing. Negotiable on select accounts.</p></a>
+      <a class="cat" href="#cod"><span class="arrow">→</span><small>Top ups</small><h3>Call of Duty points</h3><p>Pick a pack, pay, and watch your order move.</p></a>
+    </div>
+  </section>
+
+  <section class="sec alt" id="accounts">
+    <div class="wrap">
+      <div class="sec-head" data-fly-unit="l">
+        <div><h2>Live eFootball accounts</h2><p>Tap an account to see its images and make an offer.</p></div>
+        <div class="filters" role="group" aria-label="Filter by status" id="filters"></div>
+      </div>
+      <div class="grid" id="grid" data-fly-unit="meet"></div>
+    </div>
+  </section>
+
+  <section class="sec" id="how">
+    <div class="wrap">
+      <div class="sec-head" data-fly-unit="r"><div><h2>How buying works</h2></div></div>
+      <ol class="steps" id="steps" data-fly-unit="l">
+        <li class="step"><span class="n"></span><b>Browse and look closely</b><span>See the squad, reserves, linked type and price before you say a word.</span></li>
+        <li class="step"><span class="n"></span><b>Ask or make an offer</b><span>The assistant replies instantly. Temi steps in when you need him.</span></li>
+        <li class="step"><span class="n"></span><b>Pay by bank transfer</b><span>Temi confirms your payment himself.</span></li>
+        <li class="step"><span class="n"></span><b>Handover with Temi</b><span>He is present for the handover, so you can confirm everything.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="sec alt" id="cod">
+    <div class="wrap">
+      <div class="sec-head" data-fly-unit="l">
+        <div><h2>Call of Duty points</h2><p>Pick a pack and order in a minute. Rates change daily, and your price is locked when you order. Demo rates shown.</p></div>
+      </div>
+      <div class="packs" id="packs" data-fly-unit="meet"></div>
+      <div id="codPanel"></div>
+    </div>
+  </section>
+
+  <section class="sec" id="faq">
+    <div class="wrap faq" data-fly-unit="meet">
+      <div><h2 class="h2">Questions, answered</h2><p class="muted" style="margin-top:12px">Still stuck? Chat with Temi and a real person will help.</p></div>
+      <div>
+        <details><summary>Is my money safe?</summary><p>You pay by bank transfer and Temi confirms every payment himself before the deal moves on.</p></details>
+        <details><summary>Can I negotiate the price?</summary><p>Some accounts are negotiable. Open an account and make an offer. The assistant replies instantly, and Temi steps in when needed.</p></details>
+        <details><summary>How fast are COD points delivered?</summary><p>Most orders take 5 to 15 minutes. You can watch the status, and cancel before delivery.</p></details>
+        <details><summary>What if something goes wrong?</summary><p>If a deal breaks down or an account has an issue, message Temi on WhatsApp and he will sort it out.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <section class="cta" data-fly-unit="r">
+      <div><h2>Prefer to talk? Message Temi on WhatsApp.</h2><p>A real person, ready to help with any account or order.</p></div>
+      <a class="btn" data-wa="Hi Temi" href="#" target="_blank" rel="noopener">Chat with Temi</a>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© Temi. All rights reserved.</span>
+    <nav><a href="#faq">Terms of sale</a><a href="#faq">Privacy</a><a href="#faq">Refund policy</a><a href="#home">Facebook</a></nav>
+  </div>
+</footer>
+
+<button id="top" aria-label="Back to top">↑</button>
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="dTitle" aria-hidden="true">
+  <div class="d-head"><strong id="dTitle" style="font-family:'Space Grotesk',sans-serif;font-size:20px">Account</strong><button class="x" id="dClose" aria-label="Close">×</button></div>
+  <div class="d-body" id="dBody"></div>
+</aside>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ============ CONFIG: edit these to go live ============ */
+const CONFIG = {
+  whatsapp: '',               // Temi's number with country code, digits only, e.g. 2348012345678
+  bank: { name: "[Temi's bank name]", number: '[Account number]', holder: '[Account name]' },
+  shuffleFly: false,          // true = every section picks left, right or meet in the middle at random on each visit
+  lockMinutes: 15,            // COD price lock
+  trackStepMs: 4500,          // demo speed of COD status changes
+  packs: [
+    { id: 'p1', cp: 80,   price: 1400 },
+    { id: 'p2', cp: 400,  price: 6800 },
+    { id: 'p3', cp: 800,  price: 13500 },
+    { id: 'p4', cp: 2000, price: 33000 }
+  ],
+  // images: ['squad.jpg','reserves.jpg','manager.jpg']  -> add real screenshots here. Empty uses a sample picture.
+  accounts: [
+    { id: 1, code: 'TM-014', price: 28000,  status: 'available', linked: 'Konami ID', squad: 'Stacked attack, full reserves', images: [] },
+    { id: 2, code: 'TM-021', price: 45000,  status: 'available', linked: 'Google',    squad: 'Strong midfield, 3 featured players', images: [] },
+    { id: 3, code: 'TM-027', price: 62000,  status: 'deal',      linked: 'Facebook',  squad: 'Balanced squad, deep bench', images: [] },
+    { id: 4, code: 'TM-033', price: 85000,  status: 'available', linked: 'Konami ID', squad: 'Elite defence, 5 featured players', images: [] },
+    { id: 5, code: 'TM-009', price: 120000, status: 'sold',      linked: 'Apple',     squad: 'Full legend squad', images: [] },
+    { id: 6, code: 'TM-040', price: 150000, status: 'available', linked: 'Google',    squad: 'Top rated squad, rare reserves', images: [] }
+  ],
+  ticker: ['TM-021 just listed','400 CP delivered in 9 minutes','TM-009 sold','800 CP delivered in 12 minutes','TM-033 available now','Temi confirmed a payment','TM-014 in negotiation','2000 CP delivered in 14 minutes']
+};
+
+/* ============ helpers ============ */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const fmt = n => '₦' + Math.round(n).toLocaleString('en-US');
+const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const fine = matchMedia('(hover:hover) and (pointer:fine)').matches;
+const waHref = text => 'https://wa.me/' + CONFIG.whatsapp + '?text=' + encodeURIComponent(text);
+function esc(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+let toastT;
+function toast(msg){ const t = $('#toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('on'), 3200); }
+function confetti(){
+  if (reduced) return;
+  const colors = ['#C6F432','#8FE8AE','#FFC766','#F2F4FA'];
+  for (let i = 0; i < 46; i++){
+    const c = document.createElement('i'); c.className = 'conf';
+    c.style.left = Math.random() * 100 + 'vw'; c.style.background = colors[i % 4];
+    c.style.animationDuration = (1.6 + Math.random() * 1.6) + 's'; c.style.animationDelay = Math.random() * .4 + 's';
+    document.body.appendChild(c); setTimeout(() => c.remove(), 4000);
+  }
+}
+
+/* ============ WhatsApp links ============ */
+$$('[data-wa]').forEach(a => a.href = waHref(a.dataset.wa));
+
+/* ============ hero headline words ============ */
+(function(){
+  const h = $('#h1'); let i = 0;
+  const walk = node => {
+    [...node.childNodes].forEach(n => {
+      if (n.nodeType === 3){
+        const frag = document.createDocumentFragment();
+        n.textContent.split(/(\s+)/).forEach(p => {
+          if (!p) return;
+          if (/^\s+$/.test(p)) { frag.appendChild(document.createTextNode(' ')); return; }
+          const w = document.createElement('span'); w.className = 'w';
+          const s = document.createElement('span'); s.textContent = p; s.style.setProperty('--i', i++); w.appendChild(s); frag.appendChild(w);
+        });
+        n.replaceWith(frag);
+      } else if (n.nodeType === 1) walk(n);
+    });
+  };
+  walk(h);
+})();
+
+/* ============ hero chat loop ============ */
+(function(){
+  const box = $('#heroChat');
+  const script = [
+    ['bot', 'Hi! Looking for an eFootball account or COD points?'],
+    ['me',  'An account under ₦40,000, please.'],
+    ['bot', 'I found a few available now. Want to see the squad images?'],
+    ['me',  'Yes please.'],
+    ['bot', 'Sharp! Scroll down, tap any account, and make your offer.']
+  ];
+  const typingEl = () => { const d = document.createElement('div'); d.className = 'msg bot typing'; d.innerHTML = '<i></i><i></i><i></i>'; return d; };
+  let alive = true;
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+  async function run(){
+    while (alive){
+      box.innerHTML = '';
+      for (const [who, text] of script){
+        let t;
+        if (who === 'bot'){ t = typingEl(); box.appendChild(t); await sleep(reduced ? 0 : 900); t.remove(); }
+        else await sleep(reduced ? 0 : 700);
+        const m = document.createElement('div'); m.className = 'msg ' + who; m.textContent = text; box.appendChild(m);
+        await sleep(reduced ? 0 : 500);
+      }
+      await sleep(reduced ? 600000 : 5000);
+    }
+  }
+  run();
+})();
+
+/* ============ ticker ============ */
+(function(){
+  const items = CONFIG.ticker.map(t => '<span>' + esc(t) + '</span>').join('');
+  $('#track').innerHTML = items + items;
+})();
+
+/* ============ nav, progress, top button, active link ============ */
+const nav = $('#nav'), bar = $('#progress'), topBtn = $('#top');
+$('#burger').addEventListener('click', e => {
+  const open = !$('#links').classList.contains('on');
+  $('#links').classList.toggle('on', open); e.currentTarget.setAttribute('aria-expanded', open);
+});
+$$('#links a').forEach(a => a.addEventListener('click', () => { $('#links').classList.remove('on'); $('#burger').setAttribute('aria-expanded', 'false'); }));
+topBtn.addEventListener('click', () => scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' }));
+const secIO = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) $$('#links a[data-sec]').forEach(a => a.classList.toggle('on', a.dataset.sec === e.target.id));
+}), { rootMargin: '-45% 0px -50% 0px' });
+['accounts','how','cod','faq'].forEach(id => secIO.observe($('#' + id)));
+
+/* ============ counters ============ */
+const cIO = new IntersectionObserver(es => es.forEach(e => {
+  if (!e.isIntersecting) return; cIO.unobserve(e.target);
+  const to = +e.target.dataset.to, t0 = performance.now(), dur = reduced ? 1 : 1500;
+  (function f(t){ const p = clamp((t - t0) / dur); e.target.textContent = Math.round(to * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(f); })(t0);
+}), { threshold: .6 });
+$$('.count').forEach(c => cIO.observe(c));
+
+/* ============ scroll scrubbed fly in: left and right meet in the centre ============ */
+const ease = p => 1 - Math.pow(1 - p, 3);
+function fly(){
+  const vh = innerHeight, dist = Math.min(innerWidth * .18, 150);
+  $$('[data-fly-unit]').forEach(u => [...u.children].forEach((el, i) => {
+    const m = u.dataset.flyUnit;
+    const dir = m === 'l' ? -1 : m === 'r' ? 1 : (i % 2 ? 1 : -1);
+    const r = el.getBoundingClientRect();
+    const p = reduced ? 1 : ease(clamp((vh * 1.0 - r.top) / (vh * .42)));
+    el.style.opacity = p;
+    el.style.transform = p >= 1 ? '' : 'translate3d(' + (dir * (1 - p) * dist) + 'px,0,0)';
+  }));
+  $$('.steps').forEach(s => { const r = s.getBoundingClientRect(); s.style.setProperty('--p', clamp((vh * .75 - r.top) / Math.max(r.height, 1))); });
+}
+let tick = false;
+function onScroll(){
+  const y = scrollY, h = document.documentElement.scrollHeight - innerHeight;
+  nav.classList.toggle('scrolled', y > 24);
+  bar.style.transform = 'scaleX(' + (h > 0 ? y / h : 0) + ')';
+  topBtn.classList.toggle('on', y > 700);
+  fly();
+}
+addEventListener('scroll', () => { if (!tick){ tick = true; requestAnimationFrame(() => { onScroll(); tick = false; }); } }, { passive: true });
+addEventListener('resize', onScroll);
+
+/* ============ mouse: hero spotlight, parallax, 3D tilt ============ */
+if (fine && !reduced){
+  const hero = $('#hero'), card = $('#heroCard');
+  hero.addEventListener('pointermove', e => {
+    const r = hero.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+    hero.style.setProperty('--mx', (x + .5) * 100 + '%'); hero.style.setProperty('--my', (y + .5) * 100 + '%');
+    card.style.transform = 'rotateY(' + (x * 8) + 'deg) rotateX(' + (-y * 8) + 'deg)';
+    $$('.float').forEach(f => { const d = +f.dataset.depth; f.style.transform = 'translate(' + (x * d) + 'px,' + (y * d) + 'px)'; });
+  });
+  hero.addEventListener('pointerleave', () => { card.style.transform = ''; $$('.float').forEach(f => f.style.transform = ''); });
+  $('#grid').addEventListener('pointermove', e => {
+    const t = e.target.closest('.tilt'); if (!t) return;
+    const r = t.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+    t.style.transform = 'rotateY(' + ((x - .5) * 9) + 'deg) rotateX(' + ((.5 - y) * 9) + 'deg) translateZ(0)';
+    t.style.setProperty('--gx', x * 100 + '%'); t.style.setProperty('--gy', y * 100 + '%');
+  });
+  $('#grid').addEventListener('pointerout', e => { const t = e.target.closest('.tilt'); if (t) t.style.transform = ''; });
+}
+
+/* ============ sample pictures (replaced by real screenshots when provided) ============ */
+function rnd(seed){ let s = seed * 9301 + 49297; return () => (s = (s * 9301 + 49297) % 233280) / 233280; }
+function pitchSVG(seed){
+  const R = rnd(seed), pts = [[120,134],[40,106],[92,110],[148,110],[200,106],[70,70],[120,62],[170,70],[48,26],[120,20],[192,26]];
+  const dots = pts.map(([x, y]) => `<circle cx="${(x + (R() - .5) * 8).toFixed(1)}" cy="${(y + (R() - .5) * 8).toFixed(1)}" r="7" fill="${R() > .75 ? '#FFC766' : '#C6F432'}"/>`).join('');
+  return `<svg viewBox="0 0 240 150" role="img" aria-label="Sample squad image"><rect width="240" height="150" fill="#14301F"/><rect x="8" y="8" width="224" height="134" rx="4" fill="none" stroke="#2F6B45"/><line x1="8" y1="75" x2="232" y2="75" stroke="#2F6B45"/><circle cx="120" cy="75" r="18" fill="none" stroke="#2F6B45"/>${dots}</svg>`;
+}
+function reservesSVG(seed){
+  const R = rnd(seed + 7); let c = '';
+  for (let i = 0; i < 8; i++){ const x = 10 + (i % 4) * 57, y = 10 + Math.floor(i / 4) * 68, rt = 78 + Math.floor(R() * 16);
+    c += `<rect x="${x}" y="${y}" width="50" height="60" rx="7" fill="#1E2540" stroke="#2A3254"/><circle cx="${x + 25}" cy="${y + 24}" r="9" fill="#C6F432" opacity=".85"/><text x="${x + 25}" y="${y + 50}" text-anchor="middle" font-size="11" font-family="Inter" fill="#F2F4FA">${rt}</text>`; }
+  return `<svg viewBox="0 0 240 150" role="img" aria-label="Sample reserves image"><rect width="240" height="150" fill="#101528"/>${c}</svg>`;
+}
+function managerSVG(a){
+  return `<svg viewBox="0 0 240 150" role="img" aria-label="Sample manager and linked side"><rect width="240" height="150" fill="#101528"/><circle cx="62" cy="58" r="26" fill="#1E2540" stroke="#C6F432" stroke-width="2"/><circle cx="62" cy="50" r="9" fill="#C6F432"/><path d="M40 84c6-14 38-14 44 0" fill="none" stroke="#C6F432" stroke-width="3"/><text x="104" y="52" font-size="12" font-family="Inter" fill="#A9B1CC">Manager</text><text x="104" y="70" font-size="14" font-family="Inter" font-weight="600" fill="#F2F4FA">Included</text><text x="20" y="118" font-size="12" font-family="Inter" fill="#A9B1CC">Linked type</text><text x="20" y="136" font-size="15" font-family="Inter" font-weight="600" fill="#C6F432">${esc(a.linked)}</text></svg>`;
+}
+function picsFor(a){
+  const labels = ['Squad', 'Reserves', 'Manager and linked side'];
+  const svgs = [pitchSVG(a.id), reservesSVG(a.id), managerSVG(a)];
+  return labels.map((label, i) => ({ label, html: a.images && a.images[i] ? `<img src="${esc(a.images[i])}" alt="${esc(label)} of ${esc(a.code)}" loading="lazy">` : svgs[i] }));
+}
+
+/* ============ accounts grid ============ */
+const STATUS = { available: 'Available', deal: 'In deal', sold: 'Sold' };
+let filter = 'all';
+function renderFilters(){
+  const defs = [['all', 'All'], ['available', 'Available'], ['deal', 'In deal']];
+  $('#filters').innerHTML = defs.map(([id, l]) => `<button class="chip" data-f="${id}" aria-pressed="${filter === id}">${l}</button>`).join('');
+}
+$('#filters').addEventListener('click', e => { const b = e.target.closest('[data-f]'); if (!b) return; filter = b.dataset.f; renderFilters(); renderGrid(); });
+function renderGrid(){
+  const list = CONFIG.accounts.filter(a => filter === 'all' || a.status === filter);
+  $('#grid').innerHTML = list.map(a => `
+    <article class="acard"><div class="tilt">
+      <div class="shot">${picsFor(a)[0].html}</div>
+      <div class="row"><span class="code">${esc(a.code)}</span><span class="pill ${a.status}">${STATUS[a.status]}</span></div>
+      <div class="kv"><div><span>Linked type</span><b>${esc(a.linked)}</b></div><div><span>Squad</span><b>${esc(a.squad)}</b></div></div>
+      <div class="foot"><div class="price">${fmt(a.price)}</div>
+        <button class="btn btn-sm ${a.status === 'available' ? 'btn-p' : 'btn-g'}" data-open="${a.id}">${a.status === 'available' ? 'View and offer' : 'View'}</button></div>
+    </div></article>`).join('');
+  fly();
+}
+$('#grid').addEventListener('click', e => { const b = e.target.closest('[data-open]'); if (b) openDrawer(+b.dataset.open, b); });
+
+/* ============ drawer with gallery + negotiating assistant ============ */
+const drawer = $('#drawer'), scrim = $('#scrim');
+let cur = null, lastFocus = null, chatState = {};
+const maxOff = p => p <= 40000 ? 2000 : p <= 100000 ? 5000 : 10000;
+function openDrawer(id, trigger){
+  cur = CONFIG.accounts.find(a => a.id === id); lastFocus = trigger;
+  chatState = { mode: 'start', agreed: null, escalated: false, counter: null };
+  const pics = picsFor(cur), a = cur;
+  $('#dTitle').textContent = a.code;
+  $('#dBody').innerHTML = `
+    <div class="gal"><div class="shot" id="shot">${pics.map((p, i) => `<div class="${i === 0 ? 'on' : ''}">${p.html}</div>`).join('')}</div>
+      <div class="thumbs" role="group" aria-label="Choose an image">${pics.map((p, i) => `<button class="chip" data-img="${i}" aria-pressed="${i === 0}">${esc(p.label)}</button>`).join('')}</div>
+      <p class="muted" style="font-size:13px;margin:12px 0 0">Sample visuals. Real squad screenshots from Temi's upload appear here.</p></div>
+    <div class="box">
+      <div class="row"><h3 style="font-size:28px">${esc(a.code)}</h3><span class="pill ${a.status}">${STATUS[a.status]}</span></div>
+      <div class="kv"><div><span>Linked type</span><b>${esc(a.linked)}</b></div><div><span>Squad</span><b>${esc(a.squad)}</b></div></div>
+      <div class="price" style="font-size:34px;padding-top:12px;border-top:1px solid var(--bd)">${fmt(a.price)}</div>
+    </div>
+    ${a.status === 'available' ? `
+    <div class="box" id="negBox">
+      <div class="row" style="justify-content:flex-start"><span class="avatar" style="width:36px;height:36px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="8" width="16" height="11" rx="3"/><path d="M12 8V4M9 13h.01M15 13h.01"/></svg></span><strong>Make an offer</strong></div>
+      <div class="chat" id="chat" aria-live="polite"></div>
+      <div class="chips" id="chips"></div>
+      <form class="offer" id="offerForm" autocomplete="off"><input id="offerIn" inputmode="numeric" placeholder="Type your offer, e.g. 25000" aria-label="Your offer in naira"><button class="btn btn-p btn-sm" type="submit">Send</button></form>
+      <div id="status"></div>
+    </div>` : `<div class="box muted">This account is ${STATUS[a.status].toLowerCase()} right now. Browse the other accounts, or ask Temi if it comes back.</div>`}
+    <a class="btn btn-p" id="waBtn" href="${waHref('Hi Temi, I am interested in account ' + a.code)}" target="_blank" rel="noopener">Continue on WhatsApp</a>
+    <p class="muted" style="font-size:13px;text-align:center;margin:-6px 0 0">Opens a chat with Temi with this account already filled in.</p>`;
+  drawer.classList.add('on'); scrim.classList.add('on'); drawer.setAttribute('aria-hidden', 'false'); document.body.classList.add('lock');
+  setTimeout(() => $('#dClose').focus(), 60);
+  if (a.status === 'available'){ botSay(`Hi! I be Temi's assistant. This account is ${fmt(a.price)}. Ask me anything about it, or make an offer.`, 200).then(setChips); }
+}
+function closeDrawer(){
+  drawer.classList.remove('on'); scrim.classList.remove('on'); drawer.setAttribute('aria-hidden', 'true'); document.body.classList.remove('lock');
+  if (lastFocus) lastFocus.focus();
+}
+$('#dClose').addEventListener('click', closeDrawer); scrim.addEventListener('click', closeDrawer);
+addEventListener('keydown', e => { if (e.key === 'Escape' && drawer.classList.contains('on')) closeDrawer(); });
+$('#dBody').addEventListener('click', e => {
+  const t = e.target.closest('[data-img]');
+  if (t){ const i = +t.dataset.img; $$('#shot > div').forEach((d, k) => d.classList.toggle('on', k === i)); $$('[data-img]').forEach(b => b.setAttribute('aria-pressed', b === t)); }
+  const c = e.target.closest('[data-chip]'); if (c) chipAction(c.dataset.chip, c.dataset.val);
+});
+$('#dBody').addEventListener('submit', e => {
+  if (e.target.id !== 'offerForm') return; e.preventDefault();
+  const v = $('#offerIn').value; $('#offerIn').value = ''; handleText(v);
+});
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+function userSay(text){ const m = document.createElement('div'); m.className = 'msg me'; m.textContent = text; $('#chat').appendChild(m); $('#chat').scrollTop = 1e6; }
+async function botSay(text, delay = 650){
+  const chat = $('#chat'); if (!chat) return;
+  const t = document.createElement('div'); t.className = 'msg bot typing'; t.innerHTML = '<i></i><i></i><i></i>'; chat.appendChild(t); chat.scrollTop = 1e6;
+  await sleep(reduced ? 0 : delay);
+  t.className = 'msg bot'; t.textContent = text; chat.scrollTop = 1e6;
+}
+function setChips(){
+  const box = $('#chips'); if (!box) return;
+  const a = cur, off = maxOff(a.price), st = chatState; let chips = [];
+  if (st.mode === 'start'){
+    const near = a.price - Math.round(off * .5 / 500) * 500, edge = a.price - off, low = a.price - off * 3;
+    chips = [[`Offer ${fmt(near)}`, 'offer', near], [`Offer ${fmt(edge)}`, 'offer', edge], [`Offer ${fmt(low)}`, 'offer', low], ['What is linked to it?', 'linked', '']];
+  } else if (st.mode === 'counter'){
+    chips = [[`Accept ${fmt(st.counter)}`, 'accept', st.counter], ['Ask Temi', 'ask', '']];
+  }
+  box.innerHTML = chips.map(([l, k, v]) => `<button class="chip" type="button" data-chip="${k}" data-val="${v}">${esc(l)}</button>`).join('');
+}
+function setStatus(){
+  const s = $('#status'), st = chatState; if (!s) return;
+  let h = '';
+  if (st.agreed) h += `<div class="banner ok">Agreed price: ${fmt(st.agreed)}</div>`;
+  if (st.escalated) h += `<div class="banner warn">Temi has been alerted by email and will reach you on WhatsApp.</div>`;
+  s.innerHTML = h;
+  $('#waBtn').href = waHref('Hi Temi, I am interested in account ' + cur.code + (st.agreed ? ' at ' + fmt(st.agreed) : ''));
+}
+async function offer(amount){
+  const a = cur, off = maxOff(a.price), floor = a.price - off;
+  userSay(`I can pay ${fmt(amount)}.`); $('#chips').innerHTML = '';
+  if (amount >= floor){
+    await botSay(`Sharp! ${fmt(amount)} works. Tap Continue on WhatsApp and Temi go confirm am with you.`);
+    chatState = { ...chatState, mode: 'done', agreed: amount }; confetti();
+  } else if (amount >= floor - off){
+    await botSay(`That one is a bit low. The best I fit do na ${fmt(floor)}. E okay?`);
+    chatState = { ...chatState, mode: 'counter', counter: floor };
+  } else {
+    await botSay('I no fit go that low. Make I ask Temi for you. He go reach you on WhatsApp.');
+    chatState = { ...chatState, mode: 'done', escalated: true };
+  }
+  setChips(); setStatus();
+}
+async function chipAction(k, v){
+  $('#chips').innerHTML = '';
+  if (k === 'offer') return offer(+v);
+  if (k === 'linked'){ userSay('What is linked to this account?'); await botSay(`It is linked to ${cur.linked}. Temi hands it over with you present, so you can confirm everything.`); return setChips(); }
+  if (k === 'accept'){ userSay(`Okay, I will take ${fmt(+v)}.`); await botSay(`Done! ${fmt(+v)} it is. Tap Continue on WhatsApp and Temi go take over.`); chatState = { ...chatState, mode: 'done', agreed: +v }; confetti(); }
+  if (k === 'ask'){ userSay('Please ask Temi.'); await botSay('No wahala. I don alert Temi, he go message you on WhatsApp.'); chatState = { ...chatState, mode: 'done', escalated: true }; }
+  setChips(); setStatus();
+}
+function handleText(raw){
+  const t = raw.trim(); if (!t) return;
+  const m = t.toLowerCase().replace(/,/g, '').match(/(\d+(?:\.\d+)?)\s*(k|m)?/);
+  if (m){
+    let n = parseFloat(m[1]); if (m[2] === 'k') n *= 1000; if (m[2] === 'm') n *= 1e6; if (n < 1000) n *= 1000;
+    if (chatState.mode === 'done') { userSay(t); return botSay('We don agree already. Tap Continue on WhatsApp so Temi can finish am.'); }
+    return offer(n);
+  }
+  userSay(t);
+  if (/link/.test(t.toLowerCase())) return chipAction('linked', '').then(() => {});
+  botSay('Type the amount you want to pay, like 25000, or tap one of the options. If you need Temi, tap Continue on WhatsApp.').then(setChips);
+}
+
+/* ============ COD ordering ============ */
+const cod = { pack: null, step: 0, progress: 0, code: '', player: '', lockEnd: 0, timer: null, lockTimer: null };
+const STEPS = ['Order placed', 'Payment confirmed by Temi', 'Getting your points', 'Delivered'];
+const MSGS = ['', 'Temi is checking his bank alert. This usually takes a few minutes.', 'Temi is getting your points now. Most orders take 5 to 15 minutes.', 'Done! Your points have been delivered to your account.'];
+function packBy(id){ return CONFIG.packs.find(p => p.id === id); }
+function renderPacks(){
+  $('#packs').innerHTML = CONFIG.packs.map(p => `<button class="pack" data-pack="${p.id}" aria-pressed="${cod.pack === p.id && cod.step > 0 && cod.step < 4}"><span class="cp">${p.cp.toLocaleString('en-US')}<small>CP</small></span><span class="pr">${fmt(p.price)}</span><span class="go">${cod.pack === p.id && cod.step > 0 && cod.step < 4 ? 'Selected' : 'Select pack →'}</span></button>`).join('');
+  fly();
+}
+function stopTimers(){ clearInterval(cod.timer); clearInterval(cod.lockTimer); }
+function renderCod(){
+  const p = packBy(cod.pack), el = $('#codPanel');
+  if (!p){ el.innerHTML = `<div class="panel empty">Select a pack above to start your order.</div>`; return; }
+  if (cod.step === 1){
+    el.innerHTML = `<div class="panel"><h3>Your order: ${p.cp.toLocaleString('en-US')} CP for ${fmt(p.price)}</h3><p class="muted" style="margin:0">Your price is locked for ${CONFIG.lockMinutes} minutes once you place the order.</p>
+      <div class="field"><label for="pid">Your player ID</label><input id="pid" type="text" placeholder="Enter your player ID" value="${esc(cod.player)}" autocomplete="off"></div><div class="err" id="perr"></div>
+      <div class="btns"><button class="btn btn-p" data-act="place">Place order</button><button class="btn btn-g" data-act="change">Change pack</button></div></div>`;
+  } else if (cod.step === 2){
+    el.innerHTML = `<div class="panel"><h3>Pay ${fmt(p.price)} by bank transfer</h3>
+      <div class="lock-t">⏱ Price locked for <span id="lockT">--:--</span></div>
+      <div class="bank"><div><span>Order code</span><b>${cod.code}</b></div><div><span>Bank</span><b>${esc(CONFIG.bank.name)}</b></div><div><span>Account number</span><b>${esc(CONFIG.bank.number)}</b></div><div><span>Account name</span><b>${esc(CONFIG.bank.holder)}</b></div></div>
+      <p class="muted" style="margin:0">Use the order code as your transfer reference, then tap the button below.</p>
+      <div class="btns"><button class="btn btn-p" data-act="paid">I have paid</button><button class="btn btn-g" data-act="cancel">Cancel order</button></div></div>`;
+    tickLock();
+  } else if (cod.step === 3){
+    const pr = cod.progress, pct = [0, 33, 66, 100][pr];
+    el.innerHTML = `<div class="panel"><h3>Order ${cod.code}: ${p.cp.toLocaleString('en-US')} CP</h3>
+      <div class="bar" aria-hidden="true"><i style="width:${pct}%"></i></div>
+      <ul class="stepper">${STEPS.map((s, i) => { const done = i < pr || pr === 3, now = i === pr && pr < 3; return `<li class="${done ? 'done' : now ? 'now' : ''}"><span class="c">${done ? '✓' : ''}</span>${s}</li>`; }).join('')}</ul>
+      <div class="note">${MSGS[pr] || MSGS[1]}</div>
+      <div class="btns">${pr < 3 ? `<button class="btn btn-g btn-sm" data-act="cancel">Cancel order</button><span class="muted" style="align-self:center;font-size:13px">Demo speed, real orders follow Temi.</span>` : `<button class="btn btn-p" data-act="new">Start a new order</button>`}</div></div>`;
+  } else if (cod.step === 4){
+    el.innerHTML = `<div class="panel"><h3>Order cancelled</h3><p class="muted" style="margin:0">If you already paid, Temi will refund you. Message him on WhatsApp if you need anything.</p><div class="btns"><button class="btn btn-p" data-act="new">Start a new order</button><a class="btn btn-g" data-wa="Hi Temi, I cancelled order ${cod.code}" href="${waHref('Hi Temi, I cancelled order ' + cod.code)}" target="_blank" rel="noopener">Chat with Temi</a></div></div>`;
+  }
+  const pid = $('#pid'); if (pid) pid.addEventListener('input', () => { cod.player = pid.value; });
+}
+function tickLock(){
+  clearInterval(cod.lockTimer);
+  const upd = () => {
+    const left = Math.max(0, cod.lockEnd - Date.now()), t = $('#lockT');
+    if (t) t.textContent = String(Math.floor(left / 60000)).padStart(2, '0') + ':' + String(Math.floor(left / 1000) % 60).padStart(2, '0');
+    if (left <= 0){ clearInterval(cod.lockTimer); toast('Price lock ended. Rates may have changed, please start again.'); cod.step = 1; renderCod(); }
+  };
+  upd(); cod.lockTimer = setInterval(upd, 1000);
+}
+function startTracking(){
+  stopTimers(); cod.step = 3; cod.progress = 1; renderCod();
+  cod.timer = setInterval(() => {
+    cod.progress++; renderCod();
+    if (cod.progress >= 3){ clearInterval(cod.timer); confetti(); toast('Points delivered!'); renderPacks(); }
+  }, reduced ? 800 : CONFIG.trackStepMs);
+}
+$('#packs').addEventListener('click', e => {
+  const b = e.target.closest('[data-pack]'); if (!b) return;
+  stopTimers(); Object.assign(cod, { pack: b.dataset.pack, step: 1, progress: 0 }); renderPacks(); renderCod();
+  $('#codPanel').scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' });
+});
+$('#codPanel').addEventListener('click', e => {
+  const b = e.target.closest('[data-act]'); if (!b) return; const a = b.dataset.act;
+  if (a === 'place'){
+    const v = ($('#pid').value || '').trim();
+    if (v.length < 4){ $('#perr').textContent = 'Please enter your player ID so Temi knows where to send the points.'; $('#pid').focus(); return; }
+    cod.player = v; cod.code = 'TM-' + (10000 + Math.floor(Math.random() * 89999)); cod.lockEnd = Date.now() + CONFIG.lockMinutes * 60000; cod.step = 2; renderCod();
+  }
+  if (a === 'change'){ stopTimers(); cod.pack = null; cod.step = 0; renderPacks(); renderCod(); }
+  if (a === 'paid'){ startTracking(); toast('Thanks! Temi has been notified.'); }
+  if (a === 'cancel'){ stopTimers(); cod.step = 4; renderPacks(); renderCod(); }
+  if (a === 'new'){ stopTimers(); Object.assign(cod, { pack: null, step: 0, progress: 0, player: '' }); renderPacks(); renderCod(); }
+});
+
+/* ============ boot ============ */
+if (CONFIG.shuffleFly) $$('[data-fly-unit]').forEach(u => u.dataset.flyUnit = ['l', 'r', 'meet'][Math.floor(Math.random() * 3)]);
+renderFilters(); renderGrid(); renderPacks(); renderCod(); onScroll();
+</script>
+</body>
+</html>
